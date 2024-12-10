@@ -57,7 +57,7 @@ export async function GET(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error checking username:', error);
+    console.log('Error checking username:', error);
     return Response.json(
       {
         success: false,
