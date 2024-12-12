@@ -44,4 +44,4 @@ export async function GET(REQUEST:Response) {
           { message: 'Internal server error', success: false },
           { status: 500 }
         );
-}
+}}
