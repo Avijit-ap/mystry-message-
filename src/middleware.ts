@@ -15,7 +15,9 @@ if  (
       url.pathname === '/'
     )
   ) {
-    return NextResponse.redirect('/dashboard');
+    url.pathname = '/dashboard'
+
+    return NextResponse.redirect(url);
   }
   if (!token && url.pathname.startsWith('/dashboard')) {
     return NextResponse.redirect(new URL('/sign-in', request.url));
