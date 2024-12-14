@@ -34,7 +34,7 @@ export default function SendMessage() {
   const params = useParams<{ username: string }>();
   const username = params.username;
   
-  const [suggestedMessages, setSuggestedMessages] = useState<string[]>([]);
+  const [suggestedMessages, setSuggestedMessages] = useState<string[]>([""]);
   const [isSuggestLoading, setIsSuggestLoading] = useState(false);
   const [suggestError, setSuggestError] = useState('');
 
