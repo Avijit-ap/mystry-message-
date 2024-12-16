@@ -19,10 +19,10 @@ import * as z from 'zod';
 import { verifySchema } from '@/schemas/verifySchema';
 
 
-const page = () => {
+const Page = () => {
     const router=useRouter()
     const params=useParams<{username:string}>()
-    const toast=useToast()
+    const { toast } = useToast(); // Ensure the toast function is destructured
     const form = useForm<z.infer<typeof verifySchema>>({
         resolver: zodResolver(verifySchema),
       });
@@ -34,18 +34,18 @@ const page = () => {
                     code:data.code,
                 }
             );
-            toast:{
-                title:" Verify code sucess"
+            toast({
+                title:" Verify code sucess",
                 description:response.data.message
-            }
+            })
             router.replace("sign-up");
             }
             catch (error) {
                 const axiosError=error as AxiosError<ApiResponse>
-                let errorMessage = axiosError.response?.data.message;
-                ('There was a problem with your sign-up. Please try again.');
+                const errorMessage = axiosError.response?.data.message;
+                //('There was a problem with your sign-up. Please try again.');
       
-                toast:({
+                toast({
                     title: 'Verification Failed',
                     description:errorMessage,
                     variant:'destructive',
@@ -82,4 +82,4 @@ const page = () => {
       );
     }
 
-export default page
+export default Page

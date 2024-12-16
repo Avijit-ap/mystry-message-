@@ -5,7 +5,7 @@ export const runtime = 'edge';
 
 // Create an asynchronous function POST to handle POST 
 // request with parameters request and response.
-export async function POST(req:Request) {
+export async function POST() {
 
     try {
         

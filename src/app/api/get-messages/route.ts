@@ -5,7 +5,7 @@ import { User } from 'next-auth';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
-export async function GET(REQUEST:Response) {
+export async function GET() {
     await dbConnect();
     const session = await getServerSession(authOptions);
     const _user: User = session?.user;
@@ -25,7 +25,7 @@ export async function GET(REQUEST:Response) {
             { $sort: { 'messages.createdAt': -1 } },
             { $group: { _id: '$_id', messages: { $push: '$messages' } } },
           ]).exec();
-
+console.log(user);
           if (!user || user.length === 0) {
             return Response.json(
               { message: 'User not found', success: false },

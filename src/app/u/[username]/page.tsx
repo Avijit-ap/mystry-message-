@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Loader2 } from 'lucide-react';
@@ -64,7 +64,7 @@ export default function SendMessage() {
       });
       form.reset({ ...form.getValues(), content: '' });
     } catch (error) {
-      const axiosError = error as any;
+      const axiosError = error as AxiosError<ApiResponse>;
       toast({
         title: 'Error',
         description: axiosError.response?.data.message ?? 'Failed to send message',
@@ -82,7 +82,7 @@ export default function SendMessage() {
       const response = await axios.post('/api/suggest-messges');
       const messages = parseStringMessages(response.data.output || '');
       setSuggestedMessages(messages);
-    } catch (error: any) {
+    } catch (error) {
       setSuggestError(error.response?.data?.message || 'Failed to fetch suggestions');
     } finally {
       setIsSuggestLoading(false);

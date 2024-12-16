@@ -1,8 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import NextAuth, { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
-import { User } from 'next-auth';
+import { User, getServerSession } from 'next-auth';
 
 
 export async function POST(request:Request) {
@@ -53,7 +52,7 @@ try {
 }
 
 
-export async function GET(request:Request) {
+export async function GET() {
    await dbConnect();
    // Get the user session
   const session = await getServerSession(authOptions);
@@ -75,6 +74,10 @@ export async function GET(request:Request) {
             { status: 200 }
           );
     } catch (error) {
-        
+        console.error("Something went wrong", error);
+        return Response.json(
+          { success: false, message: 'Something went wrong' },
+          { status: 500 }
+        )
     }
 }
